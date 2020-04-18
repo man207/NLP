@@ -84,6 +84,10 @@ for i , j in enumerate(tokens):
 #and this one fills doc list
 for i , j in enumerate(docnames):
     sheet1.write(0 , i + 1 , str(j)) 
+    sheet1.write(0 , i + 3 + len(tf[0]) , str(j)) 
+sheet1.write(0 , 4 +  2 * len(tf[0]) , str("DF")) 
+sheet1.write(0 , 2 + len(tf[0]) , str("TF")) 
+sheet1.write(0 , 0 , str("TF-DF")) 
 #and save
 wb.save('xlwt example.xls') 
 
