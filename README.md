@@ -24,7 +24,7 @@ def readfile(file):
 
 ## DF & TF
 
-To get term and document ferquency first we read al files and tokenize them. Creating a list containg lists of tokenized texts.
+To get term and document ferquency first we read all files and tokenize them. Creating a list containg lists of tokenized texts.
 Note that instead of a list to save doc name we could have used a dictionary to save tokenized string with keys with name of respecting files. But since names are sorted it doesn't make any diffrence.
 Tokens are saved as set to pervent duplications and are converted to sorted list.
 ```python
@@ -46,7 +46,7 @@ tf = np.zeros((len(tokens) , len(tokenized) , 1) , dtype=np.int)
 df = [0 for i in tokens]
 tf_df = np.zeros((len(tokens) , len(tokenized)))
 ```
-Then search documents for every token and for every instance of a token increase it's count in TF. and if the token is seen at least once in the document. increase its respective DF by 1.
+Then search documents for every token, and for every instance of a token increase it's count in TF. and if the token is seen at least once in the document. increase its respective DF by 1.
 ```python
 dfTest = False
 for tokennum , token in enumerate(tokens):
@@ -76,3 +76,7 @@ for i , j in enumerate(docnames):
     sheet1.write(0 , i + 1 , str(j)) 
 wb.save('xlwt example.xls') 
 ```
+
+###TODO
+- Make this into a lib
+- Improve Tokenizer
