@@ -24,8 +24,8 @@ def readfile(file):
 
 ## DF & TF
 
-To get term and document ferquency first we read all files and tokenize them. Creating a list containg lists of tokenized texts.
-Note that instead of a list to save doc name we could have used a dictionary to save tokenized string with keys with name of respecting files. But since names are sorted it doesn't make any diffrence.
+To get term and document ferquency first we read all text files in /doc and tokenize them. Creating a list containg lists of tokenized texts.
+Note that instead of using a list to save document names we could use a dictionary to save tokenized strings with keys being name of respecting files. But since names are sorted it doesn't make any diffrence.
 Tokens are saved as set to pervent duplications and are converted to sorted list.
 ```python
 tokens = set()
