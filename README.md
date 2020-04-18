@@ -12,7 +12,7 @@ def tokenize(string):
         tolist.append(i.group(0))
     return tolist
 ```
-Tokenize unction takes a string and return a list of tokens.
+Tokenize function takes a string and return a list of tokens.
 The string is created with reading files with readfile func - The encoding of the file must be utf-8
 ```python
 def readfile(file):
