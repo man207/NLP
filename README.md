@@ -77,6 +77,54 @@ for i , j in enumerate(docnames):
 wb.save('xlwt example.xls') 
 ```
 
+## Better Tokenizer
+ ```python 
+ def tokenize(string):
+    regexes = {
+        "link" : r"(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+)",
+        "email" : r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)",
+        "english_percent" : r"(([0-9]+([.][0-9]+)?)%)",
+        "persian_percent" : r"([\u06f0-\u06f9]+([.][\u06f0-\u06f9]+)?)%",
+        "username" : r"(@[A-z0-9_.]+)",
+        "hashtag" : r"#([A-z\u0621-\u06cc_0-9]+)",
+        "persian_word" : r"([\u0621-\u06cc]|[\u200C])+",
+        "persian_acronym" : r"((([\u0621-\u06cc][.])+)[\u0621-\u06cc])",
+        "english_word" : r"([A-z]+)",
+        "persian_punc" : r"([»«،؛؟,])",
+        "english_punc" : r"([<>:\"\'{};,.\\/~`&*()%$#@!?%|\--])",
+        "english_num" : r"([0-9]+([.][0-9]+)?)",
+        "persian_num" : r"([\u06f0-\u06f9]+([.][\u06f0-\u06f9]+)?)",
+        "persian_date" : r"([\u06f0-\u06f9]+/[\u06f0-\u06f9]?[\u06f0-\u06f9]/[\u06f0-\u06f9]?[\u06f0-\u06f9])",
+        "english_date" : r"([0-9]+/[0-9]?[0-9]/[0-9]?[0-9])",
+        "emoji" : r"([\U00002600-\U000027BF])|([\U0001f300-\U0001f64F])|([\U0001f680-\U0001f6FF]|🆔|⭕️|⏰)"
+    }
+    regex = "|".join([value for value in regexes.values()])
+    string = normalaize(string)
+    matches = re.finditer(regex, string, re.MULTILINE)
+    tolist = []
+    for i in matches:
+        tolist.append(i.group(0))
+    return tolist
+```
+
+Now Tokenizer is much better and detects links, emails, dates, and many more.
+
+```python
+def normalaize(string):
+    ye = "ی ۍ ې ے ۓ ێ ؽ ﻱ ؠ ۑ ؾ ؿ ٸ ﻯ ﯼ ي"
+    ye = ye.split(" ")
+    harake = " َ ُ ِ ّ ً ٌ ٍ"
+    harake = harake.split(" ")
+    string = string.replace("ك" , "ک")
+    for i in ye:
+        string = string.replace(i , "ی")
+    for i in harake:
+        string = string.replace(i , "")
+    return string
+```
+
+also a normalizer is added to pervent duplicates
+
 ### TODO
 - Make this into a lib
 - Improve Tokenizer
